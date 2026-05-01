@@ -1,38 +1,32 @@
 package application;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
 
-import model.entities.Contract;
-import model.service.ContractService;
-import model.service.PaypalService;
+import model.entities.Course;
 
 public class Main {
-    
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
-        System.out.println("Entre os dados do contrato:");
-        System.out.print("Número: ");
-        int number = sc.nextInt();
-        System.out.print("Data (dd/MM/yyyy): ");
-        LocalDate date = LocalDate.parse(sc.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        System.out.print("Valor do contrato: ");
-        double totalValue = sc.nextDouble();
-        Contract contract = new Contract(number, date, totalValue);
-        System.out.print("Entre com o número de parcelas: ");
-        int numberInstallments = sc.nextInt();
-        ContractService contractService = new ContractService(new PaypalService());
-        contractService.processContract(contract, numberInstallments);
-        System.out.println("Parcelas:");
-        contract.printInstallments();
+        Course courseA = new Course("A");
+        Course courseB = new Course("B");
+        Course courseC = new Course("C");
+        fillCourse(courseA, sc);
+        fillCourse(courseB, sc);
+        fillCourse(courseC, sc);
+        
+        
         sc.close();
-
     }
 
-
-
+    public static void fillCourse(Course course, Scanner sc) {
+        System.out.print("How many students for course " + course.getName() + "? ");
+        int students = sc.nextInt();
+        for (int i = 0; i < students; i++) {
+            int studentId = sc.nextInt();
+            course.addStudent(studentId);
+        }
+    }
 
 }
