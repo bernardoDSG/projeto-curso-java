@@ -1,0 +1,16 @@
+@startuml classesDiagram
+
+class Instructor {
+- name : String
+}
+class Student {
+- code : Integer
+}
+
+class Course {
+- name : String
+}
+
+Instructor "1" --> "*" Course
+Course "*" --> "*" Student
+@enduml
